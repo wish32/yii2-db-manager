@@ -21,6 +21,7 @@
         "symfony/process": "2.8.*|3.*|4.*",
         "creocoder/yii2-flysystem": "*"
     },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "bs\\dbManager\\": "src"
