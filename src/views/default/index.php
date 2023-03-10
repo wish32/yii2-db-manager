@@ -23,44 +23,64 @@ $this->params['breadcrumbs'][] = $this->title;
             'layout' => 'inline',
         ]) ?>
 
-        <?= $form->field($model, 'db')->dropDownList(array_combine($dbList, $dbList), ['prompt' => '']) ?>
+            <div class="row">
 
-        <?= $form->field($model, 'isArchive')->checkbox() ?>
+                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <?= $form->field($model, 'db')->dropDownList(array_combine($dbList, $dbList), ['prompt' => '']) ?>
+                </div>
 
-        <?= $form->field($model, 'schemaOnly')->checkbox() ?>
+                
+            </div>
+        
+        
+
+        <?php //echo $form->field($model, 'isArchive')->checkbox() 
+        ?>
+
+        <?php //echo $form->field($model, 'schemaOnly')->checkbox() 
+        ?>
 
         <?php if (!BaseDumpManager::isWindows()) {
             echo $form->field($model, 'runInBackground')->checkbox();
         } ?>
 
-        <?php if ($model->hasPresets()): ?>
+        <?php if ($model->hasPresets()) : ?>
             <?= $form->field($model, 'preset')->dropDownList($model->getCustomOptions(), ['prompt' => '']) ?>
         <?php endif ?>
 
-        <?= Html::submitButton(Yii::t('dbManager', 'Create dump'), ['class' => 'btn btn-success']) ?>
+        
+
 
         <?php ActiveForm::end() ?>
     </div>
 
-    <?php if (!empty($activePids)): ?>
+    <?php if (!empty($activePids)) : ?>
         <div class="well">
             <h4><?= Yii::t('dbManager', 'Active processes:') ?></h4>
-            <?php foreach ($activePids as $pid => $cmd): ?>
+            <?php foreach ($activePids as $pid => $cmd) : ?>
                 <b><?= $pid ?></b>: <?= $cmd ?><br>
             <?php endforeach ?>
         </div>
     <?php endif ?>
 
-    <p>
-        <?= Html::a(Yii::t('dbManager', 'Delete all'),
-            ['delete-all'],
-            [
-                'class' => 'btn btn-danger',
-                'data-method' => 'post',
-                'data-confirm' => Yii::t('dbManager', 'Are you sure?'),
-            ]
-        ) ?>
-    </p>
+
+    <div class="d-flex justify-content-between mb-4">
+        <div>
+            <?= Html::submitButton(Yii::t('dbManager', 'Create dump'), ['class' => 'btn btn-success']) ?>
+        </div>
+        <div>
+            <?= Html::a(
+                Yii::t('dbManager', 'Delete all'),
+                ['delete-all'],
+                [
+                    'class' => 'btn btn-danger',
+                    'data-method' => 'post',
+                    'data-confirm' => Yii::t('dbManager', 'Are you sure?'),
+                ]
+            ) ?>
+        </div>
+    </div>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -89,32 +109,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{download} {restore} {storage} {delete}',
                 'buttons' => [
                     'download' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-download-alt"></span>',
+                        return Html::a(
+                            '<span class="bx bxs-download"></span>',
                             [
                                 'download',
                                 'id' => $model['id'],
                             ],
                             [
                                 'title' => Yii::t('dbManager', 'Download'),
-                                'class' => 'btn btn-sm btn-default',
-                            ]);
+                                'class' => 'btn btn-sm btn-primary',
+                            ]
+                        );
                     },
                     'restore' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-import"></span>',
+                        return Html::a(
+                            '<span class="bx bxs-save"></span>',
                             [
                                 'restore',
                                 'id' => $model['id'],
                             ],
                             [
                                 'title' => Yii::t('dbManager', 'Restore'),
-                                'class' => 'btn btn-sm btn-default',
-                            ]);
+                                'class' => 'btn btn-sm btn-primary',
+                            ]
+                        );
                     },
                     'storage' => function ($url, $model) {
                         if (Yii::$app->has('backupStorage')) {
                             $exists = Yii::$app->backupStorage->has($model['name']);
 
-                            return Html::a('<span class="glyphicon glyphicon-cloud-upload"></span>',
+                            return Html::a(
+                                '<span class="bx bxs-hdd"></span>',
                                 [
                                     'storage',
                                     'id' => $model['id'],
@@ -122,11 +147,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     'title' => $exists ? Yii::t('dbManager', 'Delete from storage') : Yii::t('dbManager', 'Upload to storage'),
                                     'class' => $exists ? 'btn btn-sm btn-danger' : 'btn btn-sm btn-success',
-                                ]);
+                                ]
+                            );
                         }
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>',
+                        return Html::a(
+                            '<span class="bx bxs-trash"></span>',
                             [
                                 'delete',
                                 'id' => $model['id'],
@@ -136,7 +163,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-method' => 'post',
                                 'data-confirm' => Yii::t('dbManager', 'Are you sure?'),
                                 'class' => 'btn btn-sm btn-danger',
-                            ]);
+                            ]
+                        );
                     },
                 ],
             ],
