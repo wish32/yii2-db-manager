@@ -1,7 +1,12 @@
 {
     "name": "wish32/yii2-db-manager",
     "description": "The db dump manager module for Yii2 . Forked from Beaten-Sect0r/yii2-db-manager",
-    "keywords": ["yii2", "backup", "db manager", "dump"],
+    "keywords": [
+        "yii2",
+        "backup",
+        "db manager",
+        "dump"
+    ],
     "authors": [
         {
             "name": "Wish32",
@@ -29,5 +34,6 @@
     },
     "extra": {
         "bootstrap": "bs\\dbManager\\Bootstrap"
-    }
+    },
+    "version": "1.1.0"
 }
