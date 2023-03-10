@@ -80,6 +80,9 @@ class DefaultController extends Controller
             $dumpOptions = $model->makeDumpOptions();
             $manager = $this->getModule()->createManager($dbInfo);
             $dumpPath = $manager->makePath($this->getModule()->path, $dbInfo, $dumpOptions);
+
+            $dumpPath = $this->changeFileName($dumpPath, $model);
+
             $dumpCommand = $manager->makeDumpCommand($dumpPath, $dbInfo, $dumpOptions);
             Yii::trace(compact('dumpCommand', 'dumpPath', 'dumpOptions'), get_called_class());
             if ($model->runInBackground) {
@@ -133,6 +136,26 @@ class DefaultController extends Controller
             'file' => $dumpFile,
             'id' => $id,
         ]);
+    }
+
+     /**
+     * 如果用戶有填寫了文件名，則修改
+     * @param unknown $dumpPath
+     * @param unknown $model
+     */
+    public function changeFileName($dumpPath, $model)
+    {
+        $filename_remark = trim($model->filename_remark);
+        if( !empty($filename_remark) ){
+            $old_filename = substr($dumpPath, strrpos($dumpPath, '/')+1);
+            $old_dir = substr($dumpPath, 0, strrpos($dumpPath, '/')+1);
+            $old_filename_ext = substr($old_filename, strpos($old_filename, '.'));
+            
+            $filename_remark = preg_replace("/\ |\/|\~|\!|\@|\#|\\$|\%|\^|、|。|，|、|\&|\*|\(|\)|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/",'',$filename_remark);
+            $filename_remark = $filename_remark.'_'.date('ymdHis');
+            $dumpPath = $old_dir.$filename_remark.$old_filename_ext;
+        }
+        return $dumpPath;
     }
 
     /**

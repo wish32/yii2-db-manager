@@ -29,7 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'db')->dropDownList(array_combine($dbList, $dbList), ['prompt' => '']) ?>
                 </div>
 
+                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                    <?= $form->field($model, 'filename_remark')->textInput(['placeholder'=>Yii::t('app','File Name')]); ?>
+                </div>
                 
+
             </div>
         
         
