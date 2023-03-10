@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->errorSummary($model) ?>
 
-        <?= $form->field($model, 'db')->dropDownList($model->getDBList(), ['prompt' => '']) ?>
+        <?= $form->field($model, 'db')->dropDownList($model->getDBList()) ?>
 
         <?php if (!BaseDumpManager::isWindows()) {
             echo $form->field($model, 'runInBackground')->checkbox();

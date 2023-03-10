@@ -50,4 +50,5 @@ return [
     'Type' => '類型',
     'Upload to storage' => '上傳到存儲',
     'gzip' => 'GZIP',
+    'File Name' => '文件名称',
 ];

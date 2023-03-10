@@ -88,7 +88,7 @@ class Dump extends Model
             'schemaOnly' => Yii::t('dbManager', 'Dump only schema'),
             'preset' => Yii::t('dbManager', 'Custom dump preset'),
             'runInBackground' => Yii::t('dbManager', 'Run in background'),
-            'filename_remark' => Yii::t('dbManager', 'Filename Remark'),
+            'filename_remark' => 'Filename Remark',
         ];
     }
 

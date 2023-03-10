@@ -23,19 +23,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'layout' => 'inline',
         ]) ?>
 
-            <div class="row">
 
-                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
-                    <?= $form->field($model, 'db')->dropDownList(array_combine($dbList, $dbList), ['prompt' => '']) ?>
-                </div>
+        <div class="d-none">
+            <?= $form->field($model, 'db')->dropDownList(array_combine($dbList, $dbList)) ?>
+        </div>
 
-                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
-                    <?= $form->field($model, 'filename_remark')->textInput(['placeholder'=>Yii::t('app','File Name')]); ?>
-                </div>
+        <div class="row">
 
+            <div class="col-lg-3 col-sm-4 ">
+                <?= $form->field($model, 'filename_remark')->textInput(['placeholder' => Yii::t('dbManager', 'File Name')]); ?>
             </div>
-        
-        
+            <div class="col-lg-3 col-sm-4">
+                <?= Html::submitButton(Yii::t('dbManager', 'Create dump'), ['class' => 'btn btn-success']) ?>
+            </div>
+
+            <div class="col-lg-6 col-sm-4">
+                <div class="d-flex justify-content-end">
+                    <?= Html::a(
+                        Yii::t('dbManager', 'Delete all'),
+                        ['delete-all'],
+                        [
+                            'class' => 'btn btn-danger',
+                            'data-method' => 'post',
+                            'data-confirm' => Yii::t('dbManager', 'Are you sure?'),
+                        ]
+                    ) ?>
+                </div>
+            </div>
+        </div>
+
+
 
         <?php //echo $form->field($model, 'isArchive')->checkbox() 
         ?>
@@ -51,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'preset')->dropDownList($model->getCustomOptions(), ['prompt' => '']) ?>
         <?php endif ?>
 
-        
+
 
 
         <?php ActiveForm::end() ?>
@@ -66,23 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php endif ?>
 
-
-    <div class="d-flex justify-content-between mb-4">
-        <div>
-            <?= Html::submitButton(Yii::t('dbManager', 'Create dump'), ['class' => 'btn btn-success']) ?>
-        </div>
-        <div>
-            <?= Html::a(
-                Yii::t('dbManager', 'Delete all'),
-                ['delete-all'],
-                [
-                    'class' => 'btn btn-danger',
-                    'data-method' => 'post',
-                    'data-confirm' => Yii::t('dbManager', 'Are you sure?'),
-                ]
-            ) ?>
-        </div>
-    </div>
 
 
     <?= GridView::widget([
