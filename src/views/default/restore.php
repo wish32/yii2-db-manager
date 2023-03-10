@@ -1,7 +1,7 @@
 <?php
 
-use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
 use bs\dbManager\models\BaseDumpManager;
 
 /* @var $this yii\web\View */
