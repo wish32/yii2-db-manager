@@ -35,5 +35,5 @@
     "extra": {
         "bootstrap": "bs\\dbManager\\Bootstrap"
     },
-    "version": "1.1.0"
+    "version": "v1.0.1"
 }
