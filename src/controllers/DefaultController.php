@@ -152,7 +152,8 @@ class DefaultController extends Controller
             $old_filename_ext = substr($old_filename, strpos($old_filename, '.'));
             
             $filename_remark = preg_replace("/\ |\/|\~|\!|\@|\#|\\$|\%|\^|、|。|，|、|\&|\*|\(|\)|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/",'',$filename_remark);
-            $filename_remark = $filename_remark.'_'.date('ymdHis');
+            $tenantId = $this->getModule()->getMultiTenancyId();
+            $filename_remark = $filename_remark.'_'.date('ymdHis') . ($tenantId?$tenantId:'');
             $dumpPath = $old_dir.$filename_remark.$old_filename_ext;
         }
         return $dumpPath;

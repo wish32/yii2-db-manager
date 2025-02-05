@@ -32,6 +32,11 @@ class Module extends BaseModule
     public $path;
 
     /**
+     * Wish: 用於多租戶系統，備份數據庫的文件名稱
+     */
+    public $multiTenancyDir = null;
+
+    /**
      * Array of available db-components for dump.
      *
      * @var array $dbList
@@ -141,9 +146,59 @@ class Module extends BaseModule
         if (!is_writable($this->path)) {
             throw new InvalidConfigException('Path is not writable! Check chmod!');
         }
+
+
+        // Wish: Get multi-tenancy identifier
+        $this->addMultiTenancyIdToPath();
+
         $this->fileList = FileHelper::findFiles($this->path, ['only' => ['*.sql', '*.gz']]);
 
         parent::init();
+    }
+
+    /**
+     * Wish: 如果是多租戶系統，需要在配置文件中配置 multiTenancyDir 參數
+     * 例如：
+     * 'multiTenancyDir' => function() { 
+     *      return 'app'.\frontend\models\Applications::currentApplicationId(); 
+     * }
+     * 
+     * Get the multi-tenancy identifier
+     * @return mixed
+     * @throws \Exception
+     */
+    public function addMultiTenancyIdToPath()
+    {
+        if( !$this->multiTenancyDir ){
+            return;
+        }
+        $tenantId = $this->getMultiTenancyId();
+        
+        // Append tenant ID to path if exists
+        if ($tenantId !== null) {
+            $this->path = $this->path. $tenantId;
+        }
+        
+        // Create directory if not exists
+        if (!file_exists($this->path)) {
+            FileHelper::createDirectory($this->path);
+        }
+    }
+
+    /**
+     * 獲取多租戶ID
+     */
+    public function getMultiTenancyId()
+    {
+        if( !$this->multiTenancyDir ){
+            return;
+        }
+        // Get multi-tenancy ID
+        $tenantId = null;
+        if (is_callable($this->multiTenancyDir)) {
+            $tenantId = call_user_func($this->multiTenancyDir);
+        }
+        return $tenantId;
     }
 
     /**
