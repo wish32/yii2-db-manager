@@ -60,9 +60,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php //echo $form->field($model, 'schemaOnly')->checkbox() 
         ?>
 
-        <?php if (!BaseDumpManager::isWindows()) {
-            echo $form->field($model, 'runInBackground')->checkbox();
-        } ?>
+        <?php 
+        // if (!BaseDumpManager::isWindows()) {
+        //     echo $form->field($model, 'runInBackground')->checkbox();
+        // } 
+        ?>
 
         <?php if ($model->hasPresets()) : ?>
             <?= $form->field($model, 'preset')->dropDownList($model->getCustomOptions(), ['prompt' => '']) ?>
