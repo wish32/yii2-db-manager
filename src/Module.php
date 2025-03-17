@@ -176,7 +176,7 @@ class Module extends BaseModule
         
         // Append tenant ID to path if exists
         if ($tenantId !== null) {
-            $this->path = $this->path. $tenantId;
+            $this->path = $this->path. strtolower($tenantId);
         }
         
         // Create directory if not exists
