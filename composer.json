@@ -1,6 +1,6 @@
 {
     "name": "wish32/yii2-db-manager",
-    "description": "Forked from Beaten-Sect0r/yii2-db-manager",
+    "description": "Forked from Beaten-Sect0r/yii2-db-manager and added multi-tenant support", 
     "keywords": [
         "yii2",
         "backup",
