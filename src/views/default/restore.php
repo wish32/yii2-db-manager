@@ -26,9 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'db')->dropDownList($model->getDBList()) ?>
 
-        <?php if (!BaseDumpManager::isWindows()) {
-            echo $form->field($model, 'runInBackground')->checkbox();
-        } ?>
+        <?php 
+        // if (!BaseDumpManager::isWindows()) {
+        //     echo $form->field($model, 'runInBackground')->checkbox();
+        // } 
+        ?>
 
         <?php if ($model->hasPresets()): ?>
             <?= $form->field($model, 'preset')->dropDownList($model->getCustomOptions(), ['prompt' => '']) ?>
