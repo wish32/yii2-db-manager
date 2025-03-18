@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'filename_remark')->textInput(['placeholder' => Yii::t('dbManager', 'File Name')]); ?>
             </div>
             <div class="col-lg-3 col-sm-4">
-                <?= Html::submitButton(Yii::t('dbManager', 'Create dump'), ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton(Yii::t('dbManager', 'Create dump'), ['class' => 'btn btn-primary']) ?>
             </div>
 
             <div class="col-lg-6 col-sm-4">

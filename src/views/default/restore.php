@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="dbManager-default-restore">
 
     <div class="well">
-        <h4><?= Yii::t('dbManager', 'Restore') . ': ' .  $file ?></h4>
+        <h4><?= Yii::t('dbManager', 'Restore') . ': ' .  pathinfo(basename($file), PATHINFO_FILENAME) ?></h4>
         <?php $form = ActiveForm::begin([
             'action' => ['restore', 'id' => $id],
             'method' => 'post',
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'preset')->dropDownList($model->getCustomOptions(), ['prompt' => '']) ?>
         <?php endif ?>
 
-        <?= Html::submitButton(Yii::t('dbManager', 'Restore'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('dbManager', 'Restore'), ['class' => 'btn btn-primary']) ?>
 
         <?php ActiveForm::end() ?>
     </div>
