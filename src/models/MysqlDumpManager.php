@@ -32,6 +32,8 @@ class MysqlDumpManager extends BaseDumpManager
             '--defaults-extra-file=' . escapeshellarg($optionFile),
         ];
 
+        $arguments[] = '--force';//强制恢复,避免DigatalOcean的MySQL8的報錯：Access denied; you need (at least one of) the SUPER, SYSTEM_VARIABLES_ADMIN or SESSION_VARIABLES_ADMIN privilege(s) for this operation
+        
         if (isset($dbInfo['attributes']) && isset($dbInfo['attributes'][\PDO::MYSQL_ATTR_SSL_CA])) {
             $arguments[] = '--ssl-ca=' . $dbInfo['attributes'][\PDO::MYSQL_ATTR_SSL_CA];
         }
@@ -81,7 +83,7 @@ class MysqlDumpManager extends BaseDumpManager
             '--defaults-extra-file=' . escapeshellarg($optionFile),
         ]);
 
-
+        $arguments[] = '--force';//强制恢复,避免DigatalOcean的MySQL8的報錯：Access denied; you need (at least one of) the SUPER, SYSTEM_VARIABLES_ADMIN or SESSION_VARIABLES_ADMIN privilege(s) for this operation
         if ($restoreOptions['preset']) {
             $arguments[] = trim($restoreOptions['presetData']);
         }
